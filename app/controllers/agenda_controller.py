@@ -46,8 +46,15 @@ class AgendaController:
 
 
     @staticmethod
-    def remover_contato(telefone: str):
+    def remover_contato():
         """Endpoint para remover um contato pelo telefone."""
+
+        dados = request.get_json()
+        if not dados or 'telefone' not in dados:
+            return jsonify({"erro": "Telefone obrigatório."}), 400
+
+        telefone = dados['telefone']
+
         if agenda.removeContato(telefone):
             return jsonify({"mensagem": "Contato removido com sucesso."}), 200
         else:
