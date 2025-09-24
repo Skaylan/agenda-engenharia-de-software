@@ -64,7 +64,5 @@ class AgendaController:
     def listar_contatos():
         """Endpoint para listar todos os contatos."""
         lista_de_contatos = agenda.getListaAgenda()
-        contatos_json = [
-            {"nome": c.getNome(), "telefone": c.getTelefone()} for c in lista_de_contatos
-        ]
-        return jsonify(contatos_json), 200
+
+        return jsonify(lista_de_contatos), 200
