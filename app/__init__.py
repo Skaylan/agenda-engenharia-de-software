@@ -5,10 +5,14 @@ from flask_cors import CORS
 from .extentions import db, migrate, ma
 from app.models.agenda import Agenda
 
-def create_app():
+def create_app(config_class=None):
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = "secret"
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+
+    if config_class:
+        app.config.from_object(config_class)
+    else:
+        app.config['SECRET_KEY'] = "secret"
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
     CORS(app)
     db.init_app(app)
